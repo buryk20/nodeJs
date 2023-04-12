@@ -19,7 +19,6 @@ function registrationModule(selector) {
 
     const config = {
         $form: document.querySelector(selector),
-        payload: null,
         config: null,
         init(config) {
             this.config = config;
@@ -39,9 +38,12 @@ function registrationModule(selector) {
             })
         },
         prepare() {
-            return {
-                login: "Sergo"
-            }
+            const data = {};
+            [].forEach.call(this.$form, ({name, value, tagName}) => {
+                if(tagName.toUpperCase() === 'BUTTON' || !(name && value)) return;
+                data[name] = value;
+            });
+            return data;
         }
     }
     return {
@@ -52,8 +54,7 @@ const a = registrationModule('#registration').init({
     methods: "POST",
     url: "http://localhost:3003/registration/",
     success(response) {
-        const data = JSON.parse(response)
-        console.log(data, 'response');
+        console.log(response, 'response');
     },
     error(error) {
         console.log(error);

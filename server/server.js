@@ -4,6 +4,9 @@ var fs = require("fs"); // fs -- обтект который дает возмо
 var app = express();
 var bodyParser = require("body-parser"); // 'body-parser' -- библиотека дает возможность прочитать post запрос на NodeJs
 
+const {read, write} = require('./helper/');
+
+
 //Настройки
 //(https://overcoder.net/q/7302/%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D0%B5%D1%82-body-parser-%D1%81-express)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,11 +24,11 @@ app.use(function (req, res, next) {
 const port = 3003;
 
 // запусть наше nodeJs приложении на порту 3002 по адресу http://localhost:3002/
-/* 
+/*
  теперь мы знаем куда мы можем обращаться к нашей nodeJS программе
  чтоб получить данные.
- (по адресу) http://localhost:3000/. 
- 
+ (по адресу) http://localhost:3000/.
+
 */
 app.listen(port, function () {
   // говорим на каком порту запускать нашу  NODE_JS  программу.
@@ -44,7 +47,7 @@ app.get('/vacancies', function(request, response) {
 })
 //------------------------------- ------------ end config ---------------------------
 /*
- // экспресс-программа(app).метод-запроса(get,post)([path], ф-я котора вызовется при обращении 
+ // экспресс-программа(app).метод-запроса(get,post)([path], ф-я котора вызовется при обращении
     на http://localhost:3000[path(напр. '/', '/user')]);
 */
 //http://localhost:3003/candidates (GET)
@@ -54,10 +57,10 @@ app.get('/vacancies', function(request, response) {
 
 app.get('/candidates', function(request, response) {
   const page = request.query;
-  console.log(page, 'page');
+  // console.log(page, 'page');
   fs.readFile('./models/data.json', 'utf-8', function(error, data) {
     const users = JSON.parse(data);
-    console.log(JSON.stringify(users));
+    // console.log(JSON.stringify(users));
       response.status(200).send(JSON.stringify(users));
   });
 });
@@ -65,23 +68,25 @@ app.get('/candidates', function(request, response) {
 
 app.post("/registration", function(req, responce) {
   const body = req.body;
-  console.log(body);
 
+  app.get('/candidates', function(req, responce) {
+    read("./models/data.json", (eroor, jsonPayload) => {
+      if(jsonPayload) {
+        write("./models/data.json", {
+          ...JSON.parse(jsonPayload),
+          ...body
+        })
+      }
+    })
+  })
   responce.status(200).send(body);
 })
 // app.get('/vacancies', function() {
 //   console.log('vacancies callback');
 // });
 
-
-
-
-function read(url, callback) {
-  fs.readFile(url, "utf-8", callback);
-}
-
 /*
- статусы (res.status(200) - говорят о том как совершился запрос, положиельно(получили необходимые данные) или 
+ статусы (res.status(200) - говорят о том как совершился запрос, положиельно(получили необходимые данные) или
  негативно(что то пошло не так).
  200 - все прошло ок
  404- что то не найдено
@@ -93,7 +98,7 @@ function read(url, callback) {
 app.get("/user", function (req, res) {});
 
 /*
-'/user/:id' - при запросе http://localhost:3000/user/123, мы можем получить значение :id 
+'/user/:id' - при запросе http://localhost:3000/user/123, мы можем получить значение :id
  как свойство обьекта req.params -> req.params.id == 123
  Если бы было '/user/:foo', то req.params.foo == 123
 */
