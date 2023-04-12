@@ -60,3 +60,21 @@ const a = registrationModule('#registration').init({
         console.log(error);
     }
 })
+
+
+// const xhr = new XMLHttpRequest();
+// const url = "https://api.telegram.org/bot1086684695:AAGUePIsqeOsnHABuEJ939JBv1hdjVZSYGQ/sendMessage";
+// xhr.open("POST", url, true);
+// xhr.setRequestHeader("Content-Type", "application/json");
+// xhr.onreadystatechange = function () {
+//   if (xhr.readyState === 4 && xhr.status === 200) {
+//     console.log(xhr.responseText);
+//   }
+// };
+// const message = {
+//   chat_id: "-1001819362362",
+//   text: "вот так я могу)))!!!!",
+// };
+// xhr.send(JSON.stringify(message));
+
+// console.log(xhr);
