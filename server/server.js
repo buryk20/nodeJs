@@ -67,23 +67,24 @@ app.get('/candidates', function(request, response) {
 
 
 app.post("/registration", function(req, responce) {
-  const body = req.body;
+  sendMessage();
+  // const body = req.body;
 
-  app.get('/candidates', function(req, responce) {
-    read("./models/data.json", (eroor, jsonPayload) => {
-      if(jsonPayload) {
-        write("./models/data.json", {
-          ...JSON.parse(jsonPayload),
-          ...body
-        })
-      }
-    })
-  })
-  responce.status(200).send(body);
+  // app.get('/candidates', function(req, responce) {
+  //   read("./models/data.json", (eroor, jsonPayload) => {
+  //     if(jsonPayload) {
+  //       write("./models/data.json", {
+  //         ...JSON.parse(jsonPayload),
+  //         ...body
+  //       })
+  //     }
+  //   })
+  // })
+  // responce.status(200).send(body);
 })
-// app.get('/vacancies', function() {
-//   console.log('vacancies callback');
-// });
+app.get('/vacancies', function() {
+  console.log('vacancies callback');
+});
 
 /*
  статусы (res.status(200) - говорят о том как совершился запрос, положиельно(получили необходимые данные) или
@@ -113,3 +114,19 @@ function getAllusers(req, res) {
 //GET Получить юзера по id (data) \ params, query
 
 //http://localhost:3000/registration (post)
+
+async function sendMessage() {
+  const fetch = await import('node-fetch');
+  const TOKEN = '6094864110:AAFQoBlAqSTBoSc3pDTC3i-EwV9lBN3TpS8';
+  const CHAT_ID = '-1001784985748';
+  const MESSAGE = 'Hello, World!';
+
+  const url = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(MESSAGE)}`;
+
+  const response = await fetch.default(url);
+  const json = await response.json();
+
+  console.log(json);
+}
+
+sendMessage();

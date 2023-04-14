@@ -63,7 +63,7 @@ const a = registrationModule('#registration').init({
 
 
 // const xhr = new XMLHttpRequest();
-// const url = "https://api.telegram.org/bot1086684695:AAGUePIsqeOsnHABuEJ939JBv1hdjVZSYGQ/sendMessage";
+// const url = "https://api.telegram.org/bot6094864110:AAFQoBlAqSTBoSc3pDTC3i-EwV9lBN3TpS8/sendMessage";
 // xhr.open("POST", url, true);
 // xhr.setRequestHeader("Content-Type", "application/json");
 // xhr.onreadystatechange = function () {
@@ -72,9 +72,41 @@ const a = registrationModule('#registration').init({
 //   }
 // };
 // const message = {
-//   chat_id: "-1001819362362",
+//   chat_id: "-1001784985748",
 //   text: "вот так я могу)))!!!!",
 // };
 // xhr.send(JSON.stringify(message));
 
 // console.log(xhr);
+
+// const inP = document.querySelector('[data-logo]');
+// const btm = document.querySelector('[data-btn]');
+
+// const telegramBotToken = '6094864110:AAFQoBlAqSTBoSc3pDTC3i-EwV9lBN3TpS8';
+// const chatId = '-1001784985748';
+
+
+// const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
+
+
+// btm.addEventListener('click', function() {
+//     const messageText = inP.value;
+//     const data = {
+//         chat_id: chatId,
+//         text: messageText
+//       };
+//     console.log(data.messageText);
+//     fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//       })
+//       .then(response => console.log('Сообщение отправлено успешно'))
+//       .catch(error => console.error('Ошибка отправки сообщения:', error));
+// });
+
+// console.log(data.messageText);
+

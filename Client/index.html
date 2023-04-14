@@ -12,10 +12,10 @@
 
 <body>
     <main>
-        <form id="registration">
+        <form onsubmit="return false;" id="registration">
             <label for="name">
                 Login
-                <input type="text" name="Login">
+                <input data-logo type="text" name="Login">
             </label>
             <label for="paswword">
                 paswword
@@ -25,7 +25,7 @@
                 Age
                 <input type="text" name="Age">
             </label>
-            <button id="foo">send</button>
+            <button data-btn id="foo">send</button>
         </form>
     </main>
     <script src="./main.js"></script>
